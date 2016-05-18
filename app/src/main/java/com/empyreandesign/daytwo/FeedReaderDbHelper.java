@@ -10,20 +10,31 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FeedReaderDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    public static final String DATABASE_NAME = "Notes.db";
+    public static final String NOTE_TABLE_NAME = "Notes";
+    public static final String NOTE_TITLE = "Title";
+    public static final String NOTE_CONTENTS = "Note";
+    public static final String PERSON_COLUMN_ID = "_id";
 
     public FeedReaderDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+    @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL("CREATE TABLE " + NOTE_TABLE_NAME + "(" +
+                PERSON_COLUMN_ID + " INTEGER PRIMARY KEY, " +
+                NOTE_TITLE + " TEXT, " +
+                NOTE_CONTENTS + " TEXT)"
+        );
     }
+
+    @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
+        db.execSQL("DROP TABLE IF EXISTS " + NOTE_TABLE_NAME);
         onCreate(db);
     }
+
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }
