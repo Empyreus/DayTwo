@@ -1,5 +1,7 @@
 package com.empyreandesign.daytwo;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -11,4 +13,6 @@ public class NewTask extends AppCompatActivity {
         setContentView(R.layout.activity_new_task);
 
     }
+
+
 }

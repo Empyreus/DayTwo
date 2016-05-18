@@ -1,5 +1,6 @@
 package com.empyreandesign.daytwo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,5 +38,14 @@ public class FeedReaderDbHelper extends SQLiteOpenHelper {
 
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
+    }
+
+    public boolean insertTask(String title, String content) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(NOTE_TITLE, title);
+        contentValues.put(NOTE_CONTENTS, content);
+        db.insert(NOTE_TABLE_NAME, null, contentValues);
+        return true;
     }
 }
